@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewData["Title"] = "PersonelTalepleri";
+    Layout = "~/Views/Shared/MudurLayout.cshtml";
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+<body>
+    <div class="tables-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-style mb-30">
+                    <div class="table-wrapper table-responsive">
+
+                        <div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <i class="fas fa-table me-1"></i>
+                                    <a class="btn CodeMirror-activeline-background"> Personel Talepleri</a>
+
+                                </div>
+
+                                <div class="card-body">
+                                    <div id="filtre">
+                                        <form action="">
+                                            <input type="date" class="form-control form-control-sm" style="width:200px;float:left" name="startDate">
+                                            <input type="date" class="form-control form-control-sm" style="width:200px;float:left" name="endDate">
+                                            <input type="submit" id="DateSet"  value="Listele" class="btn btn-primary btn-sm">
+                                        </form><br />
+                                        <script>
+                                            $(function () {
+                                                $("[name=startDate]").val(new URLSearchParams(window.location.search).get('startDate'));
+                                                $("[name=endDate]").val(new URLSearchParams(window.location.search).get('endDate'));
+                                            });
+                                        </script>
+                                    </div>
+
+                                    <table class="table table-responsive" id="datatablesSimple">
+                                        <thead>
+                                            <tr>
+                                                <th>Personel Adı </th>
+
+                                                <th>Personel Şirket </th>
+                                                <th>Personel Departman </th>
+                                                <th>Personel Yetkisi </th>
+
+                                                <th>Talep Adı </th>
+                                                <th>Talep Acıklaması</th>
+                                                <th>Talep Miktarı</th>
+                                                <th>Tahmini Fiyat</th>
+                                                <th>Talep Tarihi</th>
+                                                <th>İşlemler</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (TalepView item in ViewBag.talepList)
+                                            {
+                                            <tr>
+                                                <td class="min-width">
+                                                    @item.TalepEdenPersonelName
+                                                </td>
+
+                                                <td class="min-width">
+                                                    @item.TalepEdenPersonelCompId
+                                                </td>
+
+                                                <td class="min-width">
+                                                    @item.TalepEdenPersonelDepId
+                                                </td>
+                                                <td class="min-width">
+                                                    @item.TalepEdenPersonelRolId
+                                                </td>
+
+                                                <td class="min-width">
+                                                    @item.TalepName
+                                                </td>
+
+                                                <td class="min-width">
+                                                    @item.TalepAcıklaması
+                                                </td>
+
+
+                                                <td class="min-width">
+                                                    @item.TalepMiktari
+                                                    @item.TalepBirim
+                                                </td>
+                                                <td class="min-width">
+                                                    @item.TalepTahminiFiyat
+                                                    @item.TalepFiyatBirim
+
+
+                                                </td>
+                                                <td class="min-width">
+                                                    @item.TalepDate
+                                                </td>
+                                                <td class="min-width col-lg-3">
+                                                    <input type="button" value="Onay" onclick="TalepDurumDegis(@item.TalepID, 1)" class="btn btn-success " style="width:70px;float:left" />
+                                                    <input type="button" value="Reddet" onclick="TalepDurumDegis(@item.TalepID, 0)" class="btn btn-danger" style="width:70px;float:right" />
+                                                </td>
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form action="TalepDegistir" method="post" id="DurumForm">
+        <input type="hidden" name="TalepId" id="TalepId" />
+        <input type="hidden" name="DurumId" id="DurumId" />
+    </form>
+    <script>
+        function TalepDurumDegis(talepId, durum) {
+            $("#DurumId").val(durum);
+            $("#TalepId").val(talepId);
+            $("#DurumForm").submit();
+        }
+    </script>
+
+</body>
+

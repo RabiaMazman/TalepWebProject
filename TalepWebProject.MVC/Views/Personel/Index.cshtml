@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/PersonelLayout.cshtml";
+}
+
+<body class="sb-nav-fixed">
+
+
+    <main>
+        <div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    DataTable Example
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive" id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Personel Adı </th>
+                                <th>Talep Adı </th>
+                                <th>Talep Acıklaması</th>
+                                <th>Birimi</th>
+                                <th>Talep Miktarı</th>
+                                <th>Toplam Tahmini Fiyat</th>
+                                <th>Fiyat Birimi</th>
+                                <th>Talep Tarihi</th>
+                                <th>Onaylayan Personel Adı </th>
+                                <th>Onay Tarihi</th>
+                                <th>Talep Durumu</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Personel Adı </th>
+                                <th>Talep Adı </th>
+                                <th>Talep Acıklaması</th>
+                                <th>Birimi</th>
+                                <th>Talep Miktarı</th>
+                                <th>Toplam Tahmini Fiyat</th>
+                                <th>Fiyat Birimi</th>
+                                <th>Talep Tarihi</th>
+                                <th>Onaylayan Personel Adı </th>
+                                <th>Onay Tarihi</th>
+                                <th>Talep Durumu</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                        <tbody>
+                            @foreach (TalepView item in ViewBag.talepList)
+                            {
+                                <tr>
+                                    <td class="min-width">
+                                        @item.TalepEdenPersonelName
+                                    </td>
+
+
+                                    <td class="min-width">
+                                        @item.TalepName
+                                    </td>
+
+                                    <td class="min-width">
+                                        @item.TalepAcıklaması
+                                    </td>
+
+                                    <td class="min-width">
+                                        @item.TalepBirim
+                                    </td>
+                                    <td class="min-width">
+                                        @item.TalepMiktari
+                                    </td>
+                                    <td class="min-width">
+                                        @item.TalepTahminiFiyat
+                                    </td>
+
+                                    <td class="min-width">
+                                        @item.TalepFiyatBirim
+                                    </td>
+                                    <td class="min-width">
+                                        @item.TalepDate
+                                    </td>
+                                    <td class="min-width">
+                                        @item.TalepOnaylayanYetkiliPersonelName
+                                    </td>
+                                    <td class="min-width">
+                                        @item.TalepOnayDate
+                                    </td>
+                                    <td class="min-width col-lg-3">
+                                        <span class="badge bg-success">Talebiniz Onaylandı</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src="js/datatables-simple-demo.js"></script>
+</body>

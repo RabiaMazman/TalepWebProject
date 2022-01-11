@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewData["Title"] = "PersonelSirketTanimSil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+
+
+
+    <div class="tables-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-style mb-30">
+                    <div class="table-wrapper table-responsive">
+
+                        <div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <i class="fas fa-table me-1"></i>
+
+                                    <a class="btn active-btn-outline" asp-action="PersonelSirketTanimla">Şirket Yetkisi Tanımla</a>
+                                </div>
+
+                                <div class="card-body">
+                                    <table id="datatablesSimple" class="table table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>Şirket</th>
+                                                <th>Departman</th>
+                                                <th>Personel</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (Personel_SirketView item in ViewBag.personel_sirketViewList)
+                                            {
+
+                                                <tr>
+
+                                                    <td class="min-width">
+
+                                                        @item.CompanyName
+                                                    </td>
+                                                    <td class="min-width">
+
+                                                        @item.DepartName
+                                                    </td>
+                                                    <td class="min-width">
+
+                                                        @item.PersonName
+                                                    </td>
+                                                    <td>
+
+                                                        <a href="PersonelSirketTanimSil?DepartId=@item.DepartId&CompanyId=@item.CompanyId&PersonId=@item.PersonId" class="PersonelSirketTanimSil">Sil</a>
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".PersonelSirketTanimSil").click(function () {
+                //Herhangi bir satırdaki <a..> </a> tagı tıklandığı zaman tetiklenecek olan metotdur.
+                if (confirm("Silmek istediğinizden emin misiniz !!! ")) {
+                    var PersonelSirketTanimSil= $(this).attr('href');
+                    //Tıklanan ilgili linkin name özelliğindeki ID değerini çekiyoruz.
+                    $.ajax({
+                        url: '/Home/PersonelSirketTanimSil/' + departId + companyId + personId,//Ajax ile tetiklenecek ilgili adresi belirliyoruz.
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (data) {
+                            $("#PersonelSirketTanimSil").html(data);
+                            //Gelen Json veriyi ilgili taga yerleştiriyoruz.
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+
+
+

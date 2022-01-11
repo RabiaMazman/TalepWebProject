@@ -1,0 +1,55 @@
+﻿@model List<TalepWebProject.MVC.Models.RoleView>
+@{
+    ViewData["Title"] = "RoleList";
+}
+
+<body>
+    <div class="tables-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-style mb-30">
+                    <div class="table-wrapper table-responsive">
+
+                        <div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <i class="fas fa-table me-1"></i>
+                                    <a class="btn active-btn-outline" asp-action="RoleAdd">Yetki Ekle</a>
+                                </div>
+
+                                <div class="card-body">
+                                    <table id="datatablesSimple" class="table table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>Yetki Adı</th>
+                                                <th>İşlemler</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+
+                                                <tr>
+                                                    <td class="min-width">
+
+                                                        @item.RolName
+                                                    </td>
+
+                                                    <td class="min-width">
+                                                        <a asp-action="UpdateRole" asp-route-id="@item.RolID">Düzenle</a>
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+

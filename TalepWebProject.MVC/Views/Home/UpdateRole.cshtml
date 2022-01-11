@@ -1,0 +1,63 @@
+﻿@model TalepWebProject.MVC.Models.RoleView
+@{
+    ViewData["Title"] = "UpdateRole";
+}
+
+<body>
+    <div class="tables-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-style mb-30">
+                    <div class="table-wrapper table-responsive">
+
+                        <div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <i class="fas fa-table me-1"></i>
+                                    <a class="btn active-btn-outline" asp-action="RoleList">Yetki Listele</a>
+                                </div>
+                                <div class="card-body">
+                                    @using (Html.BeginForm("UpdateRole", "Home", FormMethod.Post, new { role = "form" }))
+                                    {
+                                    <form>
+                                        @Html.ValidationSummary(true)
+
+                                        @if (ViewBag.Result != null)
+                                        {
+                                            <div style="color: forestgreen">@ViewBag.Result</div>
+                                        }
+
+
+
+                                        <div class="form-group">
+                                            @*<label for="disabledSelect">ID</label>*@
+                                            @Html.TextBoxFor(a => a.RolID, new { @class = "form-control", name = "RoleID",type="hidden" })
+                                            @Html.ValidationMessageFor(a => a.RolID)
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="disabledSelect">Yetki Adı</label>
+                                            @Html.TextBoxFor(a => a.RolName, new { @class = "form-control", name = "RoleName" })
+                                            @Html.ValidationMessageFor(a => a.RolName)
+                                        </div>
+
+
+                                        <br />
+                                        <div>
+                                            <input type="submit" value="Güncelle" class="btn btn-dark" />
+
+                                        </div>
+
+                                    </form>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+

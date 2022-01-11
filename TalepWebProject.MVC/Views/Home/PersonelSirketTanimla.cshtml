@@ -1,0 +1,176 @@
+﻿@{
+    ViewData["Title"] = "PersonelSirketTanimla";
+}
+
+<body>
+
+    <div class="tables-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-style mb-30">
+                    <div class="table-wrapper table-responsive">
+
+                        <div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    Personele Sirket ve Departman Atama 
+
+                                </div>
+                                <div class="card-body">
+                                    @using (Html.BeginForm("PersonelSirketTanimla", "Home", FormMethod.Post, new { role = "form" }))
+                                    {
+                                    <form>
+                                        @Html.ValidationSummary(true)
+
+                                        @if (ViewBag.Result != null)
+                                        {
+                                            <div class="alert alert-danger" role="alert">
+                                                @ViewBag.Result
+                                            </div>
+                                        }
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="disabledSelect">Şirketi Seç</label>
+                                                <select name="CompanyId" id="CompanyId" class="form-control" onchange="CompanyChangedCompany(this.value)" required>
+                                                    @foreach (CompaniesView item in ViewBag.comList)
+                                                    {
+                                                        <option value="@item.CompanyID">@item.CompanyName</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <br />
+                                            <div class="col">
+                                                <label for="disabledSelect">Departmanı Seç</label>
+                                                <select name="DepartId" id="DepartId" class="form-control" required>
+                                                </select>
+                                            </div>
+                                            <br />
+                                            <div class="col">
+                                                <label for="disabledSelect">Personel Seç </label>
+                                                <select name="PersonelId" class="form-control" required>
+                                                    @foreach (PersonelView item in ViewBag.personList)
+                                                    {
+                                                        <option value="@item.PersonID">@item.PersonName</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <br />
+                                        </div>
+
+                                        <div>
+                                            <br />
+                                            <input type="submit" value="Tanımla" class="btn btn-dark" />
+
+                                        </div>
+
+                                    </form>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tables-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-style mb-30">
+                    <div class="table-wrapper table-responsive">
+
+                        <div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    Personele Atanan Sirket ve Departman Listesi
+                                </div>
+
+                                <div class="card-body">
+                                    <table id="datatablesSimple" class="table table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>Personel Adı</th>
+                                                <th>Şirketi </th>
+                                                <th>Departmanı</th>
+                                                <th>İşlemler</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (Personel_SirketView item in ViewBag.personel_sirketViewList)
+                                            {
+
+                                            <tr>
+                                                <td class="min-width">
+
+                                                    @item.PersonName
+                                                </td>
+                                                <td class="min-width">
+
+                                                    @item.CompanyName
+                                                </td>
+                                                <td class="min-width">
+
+                                                    @item.DepartName
+                                                </td>
+                                            
+                                                <td>
+
+                                                    <a href="PersonelSirketTanimSil?DepartId=@item.DepartId&CompanyId=@item.CompanyId&PersonId=@item.PersonId" class="PersonelSirketTanimSil">Sil</a>
+                                                </td>
+                                            </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function CompanyChangedCompany(companyId) {
+            $.get("/Home/GetDepartments?CompanyId=" + companyId, function (data) {
+                $("#DepartId").html("");
+                data = JSON.parse(data);
+                for (var i = 0; i < data.length; i++) {
+                    $('#DepartId').append($('<option>', {
+                        value: data[i].DepartID,
+                        text: data[i].DepartName
+                    }));
+                }
+            });
+        }
+        $(function () { CompanyChangedCompany($("#CompanyId").val()); });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".PersonelSirketTanimSil").click(function () {
+                //Herhangi bir satırdaki <a..> </a> tagı tıklandığı zaman tetiklenecek olan metotdur.
+                if (confirm("Silmek istediğinizden emin misiniz !!! ")) {
+                    var PersonelSirketTanimSil= $(this).attr('href');
+                    //Tıklanan ilgili linkin name özelliğindeki ID değerini çekiyoruz.
+                    $.ajax({
+                        url: '/Home/PersonelSirketTanimSil/' + departId + companyId + personId,//Ajax ile tetiklenecek ilgili adresi belirliyoruz.
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (data) {
+                            $("#PersonelSirketTanimSil").html(data);
+                            //Gelen Json veriyi ilgili taga yerleştiriyoruz.
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+
+

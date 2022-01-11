@@ -1,0 +1,62 @@
+﻿@model List<TalepWebProject.MVC.Models.DepartmentsView>
+@{
+    ViewData["Title"] = "DepartmenList";
+}
+
+
+<body>
+    <div class="tables-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-style mb-30">
+                    <div class="table-wrapper table-responsive">
+
+                        <div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <i class="fas fa-table me-1"></i>
+                                    <a class="btn active-btn-outline" asp-action="DepartmenAdd">Departman Ekle</a>
+                                </div>
+
+                                <div class="card-body">
+                                    <table id="datatablesSimple" class="table table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>Departman Adı</th>
+                                                <th>Şirket Adı</th>
+                                                <th>İşlemler</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+
+                                                <tr>
+                                                    <td class="min-width">
+
+                                                        @item.DepartName
+                                                    </td>
+                                                    <td class="min-width">
+
+                                                        @item.CompanyName
+                                                    </td>
+
+                                                    <td class="min-width">
+                                                        <a asp-action="UpdateDepartman" asp-route-id="@item.DepartID">Düzenle</a>
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+

@@ -1,0 +1,185 @@
+﻿@model TalepWebProject.MVC.Models.PersonelView
+
+
+
+@{
+    ViewData["Title"] = "PersonelAdd";
+}
+@*<script type="text/javascript" src="jquery.min.js"></script>*@
+
+<body>
+    <div class="tables-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-style mb-30">
+                    <div class="table-wrapper table-responsive">
+
+                        <div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <i class="fas fa-table me-1"></i>
+                                    <a class="btn active-btn-outline" asp-action="Index">Personelleri Listele</a>
+                                </div>
+                                <div class="card-body">
+                                    @using (Html.BeginForm("PersonelAdd", "Home", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
+                                    {
+                                        <form>
+                                            @Html.ValidationSummary(true)
+
+                                            @if (ViewBag.Result != null)
+                                            {
+                                                <div class="alert alert-danger" role="alert">
+                                                    @ViewBag.Result
+                                                </div>
+                                            }
+                                            <div class="form-group">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label for="disabledSelect">Personel Adı</label>
+
+                                                        @Html.TextBoxFor(a => a.PersonName, new { @class = "form-control", Type = "name" })
+                                                        @Html.ValidationMessageFor(a => a.PersonName)
+                                                    </div>
+                                                    <div class="col">
+                                                        <div form-line></div>
+                                                        <label for="disabledSelect">Telefon</label>
+
+                                                        @Html.TextBoxFor(a => a.PersonPhone, new
+                                                   {
+                                                       @class = "form-control",
+                                                       Type = "tel",
+                                                       pattern = "[0]{1}[0-9]{3}[0-9]{3}[0-9]{4}"
+                                                   })
+                                                        <span class="errorMessage">
+                                                            @Html.ValidationMessageFor(a => a.PersonPhone)
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label for="disabledSelect">Email Adres</label>
+
+                                                        @Html.TextBoxFor(a => a.PersonEmail, new { @class = "form-control", Type = "email" })
+                                                        @Html.ValidationMessageFor(a => a.PersonEmail)
+                                                    </div>
+                                                    <div class="col">
+                                                        <label for="disabledSelect">Parola</label>
+
+                                                        @Html.TextBoxFor(a => a.PersonPass, new { @class = "form-control", Type = "password" })
+                                                        @Html.ValidationMessageFor(a => a.PersonPass)
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <div class="row">
+
+                                                    <div class="col">
+                                                        <label for="disabledSelect">Yetki</label>
+
+                                                        @Html.DropDownListFor(a => a.PersonRolId, (List<SelectListItem>)ViewBag.RoleList, new { @class = "form-control", required = "true" })
+                                                        @Html.ValidationMessageFor(a => a.PersonRolId)
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <label for="disabledSelect">Fotoğraf</label>
+                                                        <input type="file" value="Fotograf Seç" name="PersonPhotoFile" />
+                                                    </div>
+
+                                                    @*<div class="col">
+            <label for="disabledSelect">Durum</label>
+
+            <select class="form-control" name="PersonDurum">
+                <option value="1">Aktif</option>
+                <option value="0">Pasif</option>
+            </select>
+
+
+        </div>*@
+
+
+
+
+                                                    <br />
+                                                    <div class="col">
+
+                                                        <label class="form-group"></label>
+                                                        <br />
+
+                                                        <input class="form-group" asp-for="PersonGender" type="radio" value="Kadın" />Kadın
+
+                                                        <input class="form-group" asp-for="PersonGender" type="radio" value="Erkek" />Erkek
+
+                                                    </div>
+                                                </div>
+
+
+
+                                                <br />
+                                                <div>
+                                                    <input type="submit" value="Personel Kaydet" class="btn btn-dark" />
+
+                                                </div>
+
+
+
+
+                                        </form>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function CompanyChanged(companyId) {
+            $.get("/Home/GetDepartments?CompanyId=" + companyId, function (data) {
+                $("#PersonDepartmentId").html("");
+                $("#PersonRolId").html("");
+                data = JSON.parse(data);
+                for (var i = 0; i < data.length; i++) {
+                    $('#PersonDepartmentId').append($('<option>', {
+                        value: data[i].DepartID,
+                        text: data[i].DepartName
+                    }));
+                }
+                DeparmentChanged($('#PersonDepartmentId').val());
+            });
+        }
+        function DeparmentChanged(departmentId) {
+            $.get("/Home/GetRoles?DepartmentId=" + departmentId, function (data) {
+                $("#PersonRolId").html("");
+                data = JSON.parse(data);
+                for (var i = 0; i < data.length; i++) {
+                    $('#PersonRolId').append($('<option>', {
+                        value: data[i].RolID,
+                        text: data[i].RolName
+                    }));
+                }
+            });
+        }
+    </script>
+    @*<script>
+        $(".PersonPhone").text(function (i, text) {
+            text = text.replace(/(\d\d\d\d)(\d\d\d)(\d\d\d\d)/, "$1-$2-$3");
+            return text;
+        });
+
+    </script>*@
+  
+</body>

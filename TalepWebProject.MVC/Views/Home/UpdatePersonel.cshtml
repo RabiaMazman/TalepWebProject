@@ -1,0 +1,203 @@
+﻿@model TalepWebProject.MVC.Models.PersonelView
+
+@{
+    ViewData["Title"] = "UpdatePersonel";
+
+}
+
+
+
+
+<body>
+    <div class="tables-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-style mb-30">
+                    <div class="table-wrapper table-responsive">
+
+                        <div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <i class="fas fa-table me-1"></i>
+                                    <a class="btn active-btn-outline" asp-action="Index">Personelleri Listele</a>
+                                </div>
+                                <div class="card-body">
+                                    @using (Html.BeginForm("UpdatePersonel", "Home", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
+                                    {
+                                        <form>
+                                            @Html.ValidationSummary(true)
+
+                                            @if (ViewBag.Result != null)
+                                            {
+                                                <div style="color:forestgreen">@ViewBag.Result</div>
+                                            }
+
+                                            <div class="row gutters-sm">
+                                                <div class="col-md-3 mb-4">
+                                                    <div class="card">
+
+                                                        <div class="card-body">
+                                                            <div class="d-flex flex-column align-items-center text-center">
+                                                                <div class="col">
+                                                                    <img src="https://localhost:44356/Photos/@Model.PersonPhoto" width="200" height="303" />
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="card mb-3">
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <div class="row">
+
+                                                                    @*<div class="col">*@
+                                                                    @*<label for="disabledSelect">ID</label>*@
+
+                                                                    @Html.TextBoxFor(a => a.PersonID, new { @class = "form-control", Type = "hidden", name = "PersonID" })
+                                                                    @Html.ValidationMessageFor(a => a.PersonID)
+                                                                    @*</div>*@
+                                                                    <div class="col">
+                                                                        <label for="disabledSelect">Personel Adı</label>
+
+                                                                        @Html.TextBoxFor(a => a.PersonName, new { @class = "form-control", Type = "name", name = "PersonName" })
+                                                                        @Html.ValidationMessageFor(a => a.PersonName)
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <label for="disabledSelect">Telefon</label>
+
+                                                                        @Html.TextBoxFor(a => a.PersonPhone, new { @class = "form-control", Type = "tel", name = "PersonPhone", pattern = "[0]{1}[0-9]{3}[0-9]{3}[0-9]{4}" })
+
+                                                                       
+                                                                        <span class="errorMessage">
+                                                                            @Html.ValidationMessageFor(a => a.PersonPhone)
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                               
+                                                                   
+
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <label for="disabledSelect">Email Adres</label>
+
+                                                                        @Html.TextBoxFor(a => a.PersonEmail, new { @class = "form-control", Type = "email", name = "PersonEmail" })
+                                                                        @Html.ValidationMessageFor(a => a.PersonEmail)
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <label for="disabledSelect">Parola</label>
+
+                                                                        @Html.TextBoxFor(a => a.PersonPass, new { @class = "form-control", Type = "password", name = "PersonPass" })
+                                                                        @Html.ValidationMessageFor(a => a.PersonPass)
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <label for="disabledSelect">Yetki</label>
+                                                                    <select name="PersonRolId" id="PersonRolId" class="form-control">
+                                                                        @foreach (SelectListItem item in ViewBag.roleList)
+                                                                        {
+                                                                            <option value="@item.Value" selected="@(Model.PersonRolId==item.Text)">@item.Text</option>
+                                                                        }
+                                                                    </select>
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="row">
+
+
+
+                                                                <div class="col">
+                                                                    <label for="disabledSelect">Fotoğraf</label>
+                                                                    <input type="file" name="PersonPhotoFile" />
+                                                                </div>
+
+                                                                <div class="col">
+                                                                    <label for="disabledSelect">Durum</label>
+
+                                                                    <select class="form-control" name="PersonDurum">
+
+                                                                        <option value="1">Aktif</option>
+                                                                        <option value="0">Pasif</option>
+
+                                                                    </select>
+
+
+
+
+                                                                </div>
+                                                                @*<div class="col">
+                                                                    <br />
+
+                                                                    @foreach (var item in Html.GetEnumSelectList<PersonDurum>())
+                                                                    {
+                                                                        <input class="radio" type="radio" asp-for="PersonDurum" value="@item.Value" />@item.Text
+                                                                    }
+
+
+
+                                                                </div>*@
+
+                                                                <br />
+                                                                <div class="col">
+                                                                    <br />
+
+                                                                    @foreach (var item in Html.GetEnumSelectList<PersonGender>())
+                                                                    {
+                                                                        <input class="radio" type="radio" asp-for="PersonGender" value="@item.Text" />@item.Text
+                                                                    }
+
+
+
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                            <div>
+                                                                <input type="submit" value="Personel Güncelle" class="btn btn-dark" />
+
+                                                            </div>
+
+                                        </form>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.error_Msg').hide();
+        $('.submit').click(function (event) {
+            var data = $('.phone_val').val();
+            if (phone_validate(data)) {
+                $('.error_Msg').hide();  // hides error msg if validation is true
+            }
+            else {
+                $('.error_Msg').show();   // shows validation msg if validation is false
+                event.preventDefault();
+            }
+        });
+    });
+
+    function phone_validate(phno) {
+        var regexPattern = new RegExp(/^[0-9-+]+$/);    // regular expression pattern
+        return regexPattern.test(phno);
+    }
+</script>

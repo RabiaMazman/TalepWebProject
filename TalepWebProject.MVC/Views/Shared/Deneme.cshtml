@@ -1,0 +1,233 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - TalepWebProject.MVC</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="/Tamplate/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="/Tamplate/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="/Tamplate/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Morris Chart Css-->
+    <link href="/Tamplate/plugins/morrisjs/morris.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="/Tamplate/css/style.css" rel="stylesheet">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="/Tamplate/css/themes/all-themes.css" rel="stylesheet" />ript src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+
+</head>
+<body class="theme-blue">
+
+
+
+
+    <!-- #END# Search Bar -->
+    <!-- Top Bar -->
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-black border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                 
+
+
+
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user fa-fw"></i>@Context.Session.GetString("PersonelAdı")
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">Profil</a></li>
+                            <li><a class="dropdown-item" asp-area="" asp-controller="Login" asp-action="Logout">Çıkış</a></li>
+
+
+                        </ul>
+                    </li>
+
+                
+            </div>
+        </div>
+    </nav>
+    <!-- #Top Bar -->
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar">
+
+            <!-- #User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+
+                    <li class="active">
+                        <a href="index.html">
+                            <i class="material-icons">home</i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">widgets</i>
+                            <span>Personel</span>
+                        </a>
+                        <ul class="ml-menu">
+
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Personel Ekle</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DepartmenList">Personel Duzenle</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DepartmenList">Personel Listele</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">widgets</i>
+                            <span>Şirket</span>
+                        </a>
+                        <ul class="ml-menu">
+
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="CompaniesList">Şirket Ekle</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DepartmenList">Şirket Düzenle</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DepartmenList">Şirket Listele</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">widgets</i>
+                            <span>Departman</span>
+                        </a>
+                        <ul class="ml-menu">
+
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DepartmenList">Departman Ekle</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DepartmenList">Departman Düzenle</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DepartmenList">Departman Listele</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">widgets</i>
+                            <span>Yetki</span>
+                        </a>
+                        <ul class="ml-menu">
+
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="RoleList">Yetki Ekle</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DepartmenList">Yetki Düzenle</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="DepartmenList">Yetki Listele</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- #Menu -->
+
+
+
+
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <h2>DASHBOARD</h2>
+            </div>
+            @RenderBody()
+
+            <!-- Widgets -->
+            <div class="row clearfix">
+
+
+            </div>
+            <!-- #END# Widgets -->
+            <!-- CPU Usage -->
+
+        </div>
+    </section>
+
+    <!-- Jquery Core Js -->
+    <script src="/Tamplate/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="/Tamplate/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="/Tamplate/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="/Tamplate/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="/Tamplate/plugins/node-waves/waves.js"></script>
+
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="/Tamplate/plugins/jquery-countto/jquery.countTo.js"></script>
+
+    <!-- Morris Plugin Js -->
+    <script src="/Tamplate/plugins/raphael/raphael.min.js"></script>
+    <script src="/Tamplate/plugins/morrisjs/morris.js"></script>
+
+    <!-- ChartJs -->
+    <script src="/Tamplate/plugins/chartjs/Chart.bundle.js"></script>
+
+    <!-- Flot Charts Plugin Js -->
+    <script src="/Tamplate/plugins/flot-charts/jquery.flot.js"></script>
+    <script src="/Tamplate/plugins/flot-charts/jquery.flot.resize.js"></script>
+    <script src="/Tamplate/plugins/flot-charts/jquery.flot.pie.js"></script>
+    <script src="/Tamplate/plugins/flot-charts/jquery.flot.categories.js"></script>
+    <script src="/Tamplate/plugins/flot-charts/jquery.flot.time.js"></script>
+
+    <!-- Sparkline Chart Plugin Js -->
+    <script src="/Tamplate/plugins/jquery-sparkline/jquery.sparkline.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/Tamplate/js/admin.js"></script>
+    <script src="/Tamplate/js/pages/index.js"></script>
+
+    <!-- Demo Js -->
+    <script src="/Tamplate/js/demo.js"></script>
+</body>
+</html>

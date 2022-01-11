@@ -1,0 +1,243 @@
+﻿@model TalepWebProject.MVC.Models.PersonelView
+
+@{
+    ViewData["Title"] = " ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="profile-card-4 z-depth-3">
+                <div class="card">
+                    <div class="card-body text-center bg-white rounded-top">
+                        <div class="user-box">
+                            <img src="https://localhost:44356/Photos/@Model.PersonPhoto" width="200" height="250" />
+                        </div>
+                        <h5 class="mb-1 text-black">@Context.Session.GetString("PersonelAdı")</h5>
+                        <h6 class="text-black">@Context.Session.GetString("PersonelEmail")</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="card z-depth-3">
+                <div class="card-body">
+                    <ul class="nav nav-pills  nav-justified">
+                        <li class="nav-item">
+                            <a href="javascript:void();" data-target="#profile" data-toggle="pill" class="nav-link active show"><i class="icon-user"></i> <span class="hidden-xs">Profil Bilgilerim</span></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="javascript:void();" data-target="#edit" data-toggle="pill" class="nav-link"><i class="icon-note"></i> <span class="hidden-xs">Parola Değiştir</span></a>
+                        </li>
+                    </ul>
+                    <div class="tab-content p-3">
+
+                        <div class="tab-pane active show" id="profile">
+
+                            @using (Html.BeginForm("Profil", "Home", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
+                            {
+
+                                @Html.ValidationSummary(true)
+
+                                @if (ViewBag.Result != null)
+                                {
+                                    <div style="color:forestgreen">@ViewBag.Result</div>
+                                }
+
+
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @Html.TextBoxFor(a => a.PersonID, new { @class = "form-control", Type = "hidden", name = "PersonID" })
+                                        @Html.ValidationMessageFor(a => a.PersonID)
+
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Personel Adı</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @Html.TextBoxFor(a => a.PersonName, new { @class = "form-control", @readonly = false, name = "PersonName" })
+                                        @Html.ValidationMessageFor(a => a.PersonName)
+
+                                    </div>
+                                </div>
+                                <hr>
+
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Email </h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @Html.TextBoxFor(a => a.PersonEmail, new { @class = "form-control", @readonly = false, name = "PersonEmail" })
+                                        @Html.ValidationMessageFor(a => a.PersonEmail)
+
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Telefon</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+
+
+                                        @Html.TextBoxFor(a => a.PersonPhone, new
+                                   {
+                                       @class = "form-control",
+                                       Type = "tel",
+                                       pattern = "[0]{1}[0-9]{3}[0-9]{3}[0-9]{4}"
+                                   })
+
+                                        <span class="errorMessage">
+                                            @Html.ValidationMessageFor(a => a.PersonPhone)
+                                        </span>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Parola</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @Html.TextBoxFor(a => a.PersonPass, new { @class = "form-control", @readonly = false, name = "PersonPass", type = "password" })
+                                        @Html.ValidationMessageFor(a => a.PersonPass)
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Yetkisi</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        @Html.TextBoxFor(a => a.PersonRolId, new { @class = "form-control", @readonly = false, name = "PersonRolId" })
+                                        @Html.ValidationMessageFor(a => a.PersonRolId)
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Fotograf</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <label for="disabledSelect">Fotoğraf</label>
+                                        <input type="file" name="PersonPhotoFile" />
+                                    </div>
+                                </div>
+                                <hr>
+
+
+
+
+                                <div class="row">
+                                    <div>
+                                        <input type="submit" value="Bilgilerimi Güncelle" class="btn btn-dark" />
+
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+
+                        <div class="tab-pane" id="edit">
+                            <form asp-action="PasswordAgain" asp-controller="Home" method="post" class="form-control">
+                                <div asp-validation-summary="ModelOnly" class="text-white"></div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Eski Parola</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <input class="input-material" id="PersonPass" type="password" name="PersonPass" required data-validate-field="loginPassword">
+                                        <label class="label-material" for="PersonPass"></label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Yeni Parola</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <input class="input-material" id="Password" type="password" name="Password" required data-validate-field="loginPassword">
+                                        <label class="label-material" for="PersonPass"></label>
+                                    </div>
+                                </div>
+                                <hr >
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Yeni Parola Tekar</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <input class="input-material" id="PasswordAgain" type="password" name="PasswordAgain" required data-validate-field="loginPassword">
+                                        <label class="label-material" for="PersonPass"></label>
+                                    </div>
+                                </div>
+                                <hr >
+
+                                    <button class=" btn btn-dark" id="Home" onclick="return checkValid()" type="submit">Parola Değiştir</button>
+                                    <div id="responseDiv"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // ------------------------------------------------------- //
+    //   Inject SVG Sprite -
+    //   see more here
+    //   https://css-tricks.com/ajaxing-svg-sprite/
+    // ------------------------------------------------------ //
+    function injectSvgSprite(path) {
+
+        var ajax = new XMLHttpRequest();
+        ajax.open("GET", path, true);
+        ajax.send();
+        ajax.onload = function (e) {
+            var div = document.createElement("div");
+            div.className = 'd-none';
+            div.innerHTML = ajax.responseText;
+            document.body.insertBefore(div, document.body.childNodes[0]);
+        }
+    }
+    // this is set to BootstrapTemple website as you cannot
+    // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+    // while using file:// protocol
+    // pls don't forget to change to your domain :)
+    injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
+
+    function checkValid() {
+
+        var matched,
+            password = document.getElementById("Password").value,
+            confirm = document.getElementById("PasswordAgain").value;
+
+        matched = (password == confirm) ? true : false;
+        if (matched) {
+            //$("#passwordForm").submit();
+            return true;
+        }
+        else {
+            document.getElementById("responseDiv").innerHTML = "Parola eşleşmiyor.";
+            return false;
+        }
+    }
+</script>
+<!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
